@@ -3,7 +3,7 @@ $(document).ready(function(){
     var parties = [];
     var callback = function(){};
 
-    $.getJSON( "index.json", function( data ) {
+    $.getJSON( "/home/index.json", function( data ) {
         parties = data;
         callback();
     });
