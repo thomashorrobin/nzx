@@ -1,8 +1,9 @@
 class HomeController < ApplicationController
   def index
-    # byebug
-    p "got here"
     @parties = Party.find(:all)
+    @parties.each do |party|
+        party.TotalSeat = party.PartyVoteSeatsAllocated + party.ElectorateSeatsAllocated
+    end
   end
 
   def callapi
