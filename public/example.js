@@ -1,43 +1,103 @@
 $(document).ready(function(){
-    class CoolButton extends React.Component {
+
+    var parties = [];
+    var callback = function(){};
+
+    $.getJSON( "index.json", function( data ) {
+        parties = data;
+        callback();
+    });
+
+    class PartyResult extends React.Component {
+        constructor(){
+            super();
+        }
+        render(){
+            if(parties.length == 0){
+                return(
+                    <div>
+                        <h4>No data :(</h4>
+                    </div>
+                );
+            }
+            let party = null;
+            parties.forEach((p) => {
+                if (p.id == this.props.partyId) {
+                    party = p;
+                }
+            });
+            if (party == null) {
+                return(
+                    <div>
+                        <p>id out of range</p>
+                    </div>
+                );
+            } else {
+                return(
+                    <div className="partyDisplay">
+                        <h2>{party.PartyName}</h2>
+                        <p>Party Vote Seats: {party.PartyVoteSeatsAllocated}</p>
+                        <p>Party Votes: {party.PartyVotes}</p>
+                        <p>Party Vote Percent: {party.PartyVotePercentageWon}</p>
+                        <p>Party Vote Candidates: {party.PartyVoteCadidatesCount}</p>
+                        <p>Electorate Seats: {party.ElectorateSeatsAllocated}</p>
+                        <p>Electorate Votes: {party.ElectorateVotes}</p>
+                        <p>Electorate Percent: {party.ElectoratePercentageWon}</p>
+                        <p>Electorate Cadidates: {party.ElectorateCadidatesCount}</p>
+                        <p>Total Seats: {party.TotalSeat}</p>
+                    </div>
+                );
+            }
+        }
+    }
+
+    class PartyResultContainer extends React.Component {
         constructor(){
             super();
             this.state = {
-                label: "button!"
-            };
-            this.handleClick = this.handleClick.bind(this);
+                partyId: 0
+            }
+            this.ford = this.ford.bind(this);
+            this.back = this.back.bind(this);
+            callback = () => {
+                this.setState({
+                    partyId : 1
+                });
+            }
         }
-        handleClick(){
-            this.setState({ label: "Button clicked!" });
+
+        setPartyId(id){
+            if (id < 1) {
+                this.setState({
+                    partyId : parties.length
+                });
+            } else if (id > 15){
+                this.setState({
+                    partyId : 1
+                });
+            } else {
+                this.setState({
+                    partyId : id
+                });
+            }
         }
-        render(){
+
+        ford(){ this.setPartyId(this.state.partyId + 1); }
+        back(){ this.setPartyId(this.state.partyId - 1); }
+
+        render() {
             return(
                 <div>
-                    <button onClick={this.handleClick}>{this.state.label}</button>
+                    <button onClick={this.back}>Previous</button>
+                    <button onClick={this.ford}>Next</button>
+                    <PartyResult partyId={this.state.partyId} />
                 </div>
             );
         }
     }
 
-    class Election extends React.Component {
-        constructor(){
-            super();
-        }
-    }
-    
-    var Sub = React.createClass({
-        render: function(){
-            this.state = {
-                name : "tom"
-            };
-            window.testfn = () => this.setState({ name: "bob" });
-            return(
-                <h3>Im a sub! {this.state.name}</h3>
-            );
-        }
-    });
     ReactDOM.render(
-            <div><h2>Hello, world!</h2><Sub /><br /><CoolButton /></div>,
+            <div><h2>Hello, world!</h2><br /><PartyResultContainer /></div>,
             document.getElementById('example')
         );
     $('h1').css({ color: 'red' });

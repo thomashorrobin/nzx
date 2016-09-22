@@ -2,7 +2,7 @@ class HomeController < ApplicationController
   def index
     @parties = Party.find(:all)
     @parties.each do |party|
-        party.TotalSeat = party.PartyVoteSeatsAllocated + party.ElectorateSeatsAllocated
+        party.TotalSeat = party.PartyVoteSeatsAllocated.to_i + party.ElectorateSeatsAllocated.to_i
     end
   end
 
