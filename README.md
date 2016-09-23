@@ -1,5 +1,4 @@
-NZX test project
-================
+## NZX test project
 
 ### Introduction
 
