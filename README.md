@@ -26,11 +26,11 @@ To a certain extent you'll just have to trust me that I can program with rails. 
 
 ### React
 
-The React portion of this app basically just displays data to the user. The user can navigate between different parties and react rerenders to components to display data.
+The React portion of this app basically just displays data to the user. The user can navigate between different parties and react rerenders to display data.
 
 This is obviously a very basic use of React but I've focused the functionality on being useful to the interview and covering all of reacts basics.
 
 
 ### conclusion
 
-
+I enjoyed linking all this stuff up. I'd never build a React app without the help of a scaffolder so that was exciting as well. However isn't the most elegant code I've written, I just didn't have time to refactor anything I'm sorry. I hope it's good enough that you guys can follow it along.
